@@ -3,10 +3,12 @@ package it.prova.gestionetratte.service.airbus;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.repository.aribus.AirbusRepository;
 
+@Service
 public class AirbusServiceImpl implements AirbusService{
 
 	@Autowired

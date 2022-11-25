@@ -3,10 +3,12 @@ package it.prova.gestionetratte.service.tratta;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import it.prova.gestionetratte.model.Tratta;
 import it.prova.gestionetratte.repository.tratta.TrattaRepository;
 
+@Service
 public class TrattaServiceImpl implements TrattaService{
 
 	@Autowired
