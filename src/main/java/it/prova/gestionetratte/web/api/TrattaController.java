@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.prova.gestionetratte.dto.TrattaDTO;
+import it.prova.gestionetratte.model.Stato;
 import it.prova.gestionetratte.model.Tratta;
 import it.prova.gestionetratte.service.tratta.TrattaService;
 import it.prova.gestionetratte.web.api.exception.IdNotNullForInsertException;
+import it.prova.gestionetratte.web.api.exception.TrattaNonAnnullataException;
 import it.prova.gestionetratte.web.api.exception.TrattaNotFoundException;
 
 @RestController
@@ -37,7 +39,7 @@ public class TrattaController {
 	@GetMapping("/{id}")
 	public TrattaDTO findById(@PathVariable(value = "id", required = true) long id) {
 		Tratta trattaEsiste = trattaService.caricaSingoloElementoEager(id);
-		if(trattaEsiste == null)//da gestire con custom
+		if(trattaEsiste == null)
 			throw new TrattaNotFoundException("tratta non trovata");
 		
 		return TrattaDTO.buildTrattaDTOFromModel(trattaEsiste, true);
@@ -46,7 +48,7 @@ public class TrattaController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public TrattaDTO insert(@Valid @RequestBody TrattaDTO tratta) {
-		if(tratta.getId() != null)//da gestire con custom
+		if(tratta.getId() != null)
 			throw new IdNotNullForInsertException("impossibile inserire un elemente che ha già un id");
 		
 		Tratta trattaInserita = trattaService.inserisci(tratta.buildTrattaModel());
@@ -58,7 +60,7 @@ public class TrattaController {
 	public TrattaDTO update(@Valid @RequestBody TrattaDTO tratta) {
 		Tratta trattaDaAgiornare = trattaService.caricaSingoloElemento(tratta.getId());
 		
-		if(trattaDaAgiornare == null)//da gestire con custom
+		if(trattaDaAgiornare == null)
 			throw new TrattaNotFoundException("tratta non trovata");
 		
 		Tratta trattaAggiornata = trattaService.aggiorna(tratta.buildTrattaModel());
@@ -69,8 +71,11 @@ public class TrattaController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable(name = "id", required = true) Long id) {
 		Tratta trattaEsiste = trattaService.caricaSingoloElementoEager(id);
-		if(trattaEsiste == null)//da gestire con custom
+		if(trattaEsiste == null)
 			throw new TrattaNotFoundException("tratta non trovata");
+		
+		if(trattaEsiste.getStato() != null && trattaEsiste.getStato() != Stato.ANNULLATA)
+			throw new TrattaNonAnnullataException("Impossibile eliminare una tratta non annullata");
 		
 		trattaService.rimuovi(id);
 	}
