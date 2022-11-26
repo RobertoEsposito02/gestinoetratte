@@ -26,7 +26,7 @@ public class TrattaServiceImpl implements TrattaService{
 
 	@Override
 	public Tratta caricaSingoloElementoEager(Long id) {
-		return null;
+		return repository.findByIdEager(id).orElse(null);
 	}
 
 	@Override

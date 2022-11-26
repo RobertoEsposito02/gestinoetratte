@@ -40,6 +40,16 @@ public class Tratta {
 	public Tratta() {
 	}
 
+	public Tratta(String codice, String descrizione, LocalDate data, LocalTime oraDecollo,
+			LocalTime oraAtterragio, Stato stato) {
+		this.codice = codice;
+		this.descrizione = descrizione;
+		this.data = data;
+		this.oraDecollo = oraDecollo;
+		this.oraAtterraggio = oraAtterragio;
+		this.stato = stato;
+	}
+	
 	public Tratta(Long id, String codice, String descrizione, LocalDate data, LocalTime oraDecollo,
 			LocalTime oraAtterragio, Stato stato) {
 		this.id = id;
