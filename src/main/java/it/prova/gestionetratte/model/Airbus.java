@@ -29,10 +29,17 @@ public class Airbus {
 	@Column(name = "numeroPasseggeri")
 	private Integer numeroPassaggeri;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tratta")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "airbus")
 	private List<Tratta> tratte = new ArrayList<>();
 	
 	public Airbus() {
+	}
+	
+	public Airbus(String codice, String descrizione, LocalDate dataInizioServizio, Integer numeroPasseggeri) {
+		this.codice = codice;
+		this.descrizione = descrizione;
+		this.dataInizioServizio = dataInizioServizio;
+		this.numeroPassaggeri = numeroPasseggeri;
 	}
 	
 	public Airbus(Long id, String codice, String descrizione, LocalDate dataInizioServizio, Integer numeroPasseggeri) {

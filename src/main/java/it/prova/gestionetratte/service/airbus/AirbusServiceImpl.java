@@ -26,7 +26,7 @@ public class AirbusServiceImpl implements AirbusService{
 
 	@Override
 	public Airbus caricaSingoloElementoEager(Long id) {
-		return null;
+		return repository.findByIdEager(id);
 	}
 
 	@Override
