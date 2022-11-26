@@ -66,6 +66,10 @@ public class TrattaController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable(name = "id", required = true) Long id) {
+		Tratta trattaEsiste = trattaService.caricaSingoloElementoEager(id);
+		if(trattaEsiste == null)//da gestire con custom
+			throw new RuntimeException("tratta non trovata");
+		
 		trattaService.rimuovi(id);
 	}
 }
