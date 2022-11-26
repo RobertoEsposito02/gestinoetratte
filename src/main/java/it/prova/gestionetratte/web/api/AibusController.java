@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.prova.gestionetratte.dto.AirbusDTO;
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.service.airbus.AirbusService;
+import it.prova.gestionetratte.web.api.exception.AirbusConTratteException;
 import it.prova.gestionetratte.web.api.exception.AirbusNotFoundException;
 import it.prova.gestionetratte.web.api.exception.IdNotNullForInsertException;
 
@@ -73,6 +74,9 @@ public class AibusController {
 		
 		if(airbus == null)
 			throw new AirbusNotFoundException("airbus non trovato");
+		
+		if(airbus.getTratte() != null && airbus.getTratte().size() > 0)
+			throw new AirbusConTratteException("impossibile eliminare un parent con dei figli associati");
 		
 		airbusService.rimuovi(id);
 	}
