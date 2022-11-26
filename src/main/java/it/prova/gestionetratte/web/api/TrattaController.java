@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import it.prova.gestionetratte.dto.TrattaDTO;
 import it.prova.gestionetratte.model.Tratta;
 import it.prova.gestionetratte.service.tratta.TrattaService;
+import it.prova.gestionetratte.web.api.exception.IdNotNullForInsertException;
+import it.prova.gestionetratte.web.api.exception.TrattaNotFoundException;
 
 @RestController
 @RequestMapping("api/tratta")
@@ -36,7 +38,7 @@ public class TrattaController {
 	public TrattaDTO findById(@PathVariable(value = "id", required = true) long id) {
 		Tratta trattaEsiste = trattaService.caricaSingoloElementoEager(id);
 		if(trattaEsiste == null)//da gestire con custom
-			throw new RuntimeException("tratta non trovata");
+			throw new TrattaNotFoundException("tratta non trovata");
 		
 		return TrattaDTO.buildTrattaDTOFromModel(trattaEsiste, true);
 	}
@@ -45,7 +47,7 @@ public class TrattaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public TrattaDTO insert(@Valid @RequestBody TrattaDTO tratta) {
 		if(tratta.getId() != null)//da gestire con custom
-			throw new RuntimeException("impossibile inserire un elemente che ha già un id");
+			throw new IdNotNullForInsertException("impossibile inserire un elemente che ha già un id");
 		
 		Tratta trattaInserita = trattaService.inserisci(tratta.buildTrattaModel());
 		return TrattaDTO.buildTrattaDTOFromModel(trattaInserita, true);
@@ -57,7 +59,7 @@ public class TrattaController {
 		Tratta trattaDaAgiornare = trattaService.caricaSingoloElemento(tratta.getId());
 		
 		if(trattaDaAgiornare == null)//da gestire con custom
-			throw new RuntimeException("tratta non trovata");
+			throw new TrattaNotFoundException("tratta non trovata");
 		
 		Tratta trattaAggiornata = trattaService.aggiorna(tratta.buildTrattaModel());
 		return TrattaDTO.buildTrattaDTOFromModel(trattaAggiornata, true);
@@ -68,7 +70,7 @@ public class TrattaController {
 	public void delete(@PathVariable(name = "id", required = true) Long id) {
 		Tratta trattaEsiste = trattaService.caricaSingoloElementoEager(id);
 		if(trattaEsiste == null)//da gestire con custom
-			throw new RuntimeException("tratta non trovata");
+			throw new TrattaNotFoundException("tratta non trovata");
 		
 		trattaService.rimuovi(id);
 	}

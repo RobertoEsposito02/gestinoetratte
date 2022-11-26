@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import it.prova.gestionetratte.dto.AirbusDTO;
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.service.airbus.AirbusService;
+import it.prova.gestionetratte.web.api.exception.AirbusNotFoundException;
+import it.prova.gestionetratte.web.api.exception.IdNotNullForInsertException;
 
 @RestController
 @RequestMapping("api/airbus")
@@ -37,7 +39,7 @@ public class AibusController {
 		Airbus airbus = airbusService.caricaSingoloElementoEager(id);
 		
 		if(airbus == null)
-			throw new RuntimeException("airbus non trovato");
+			throw new AirbusNotFoundException("airbus non trovato");
 		
 		return AirbusDTO.buildAirbusDTOFromModel(airbus, true);
 	}
@@ -46,7 +48,7 @@ public class AibusController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public AirbusDTO insert(@Valid @RequestBody AirbusDTO airbus) {
 		if(airbus.getId() != null)
-			throw new RuntimeException("impossibile inserire un elemente che ha già un id");
+			throw new IdNotNullForInsertException("impossibile inserire un elemente che ha già un id");
 		
 		Airbus airbusInserito = airbusService.inserisci(airbus.buildAirbusModel());
 		return AirbusDTO.buildAirbusDTOFromModel(airbusInserito, true);
@@ -58,7 +60,7 @@ public class AibusController {
 		Airbus airbusDaAggiornare = airbusService.caricaSingoloElemento(airbus.getId());
 		
 		if(airbusDaAggiornare == null)
-			throw new RuntimeException("airbus non trovato");
+			throw new AirbusNotFoundException("airbus non trovato");
 		
 		Airbus airbusAggiornato = airbusService.aggiorna(airbus.buildAirbusModel());
 		return AirbusDTO.buildAirbusDTOFromModel(airbusAggiornato, true);
@@ -70,7 +72,7 @@ public class AibusController {
 		Airbus airbus = airbusService.caricaSingoloElementoEager(id);
 		
 		if(airbus == null)
-			throw new RuntimeException("airbus non trovato");
+			throw new AirbusNotFoundException("airbus non trovato");
 		
 		airbusService.rimuovi(id);
 	}
