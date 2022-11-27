@@ -80,4 +80,10 @@ public class AibusController {
 		
 		airbusService.rimuovi(id);
 	}
+	
+	@GetMapping("/search")
+	public List<AirbusDTO> findByExample(@RequestBody AirbusDTO example){
+		return AirbusDTO.createAirbusDTOListFromModelList(airbusService.findByExample(example.buildAirbusModel()),
+				true);
+	}
 }

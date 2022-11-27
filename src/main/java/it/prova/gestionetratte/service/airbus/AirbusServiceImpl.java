@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.repository.aribus.AirbusRepository;
@@ -30,18 +31,26 @@ public class AirbusServiceImpl implements AirbusService{
 	}
 
 	@Override
+	@Transactional
 	public Airbus inserisci(Airbus input) {
 		return repository.save(input);
 	}
 
 	@Override
+	@Transactional
 	public Airbus aggiorna(Airbus input) {
 		return repository.save(input);
 	}
 
 	@Override
+	@Transactional
 	public void rimuovi(Long id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<Airbus> findByExample(Airbus example) {
+		return repository.findByExample(example);
 	}
 
 }

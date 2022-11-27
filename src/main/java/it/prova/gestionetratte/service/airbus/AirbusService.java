@@ -16,4 +16,6 @@ public interface AirbusService {
 	Airbus aggiorna(Airbus input);
 	
 	void rimuovi(Long id);
+	
+	List<Airbus> findByExample(Airbus example);
 }
