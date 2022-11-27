@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.gestionetratte.model.Stato;
 import it.prova.gestionetratte.model.Tratta;
 import it.prova.gestionetratte.repository.tratta.TrattaRepository;
 
@@ -51,6 +52,16 @@ public class TrattaServiceImpl implements TrattaService{
 	@Override
 	public List<Tratta> findByExample(Tratta example) {
 		return repository.findByExample(example);
+	}
+
+	@Override
+	public void concludiTratte() {
+		List<Tratta> result = repository.concludiTratte();
+		for (Tratta tratta : result) {
+			tratta.setStato(Stato.CONCLUSA);
+			repository.save(tratta);
+		}
+		
 	}
 
 }

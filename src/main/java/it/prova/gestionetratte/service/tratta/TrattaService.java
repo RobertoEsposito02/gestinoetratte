@@ -18,4 +18,6 @@ public interface TrattaService {
 	void rimuovi(Long id);
 	
 	List<Tratta> findByExample(Tratta example);
+	
+	void concludiTratte();
 }

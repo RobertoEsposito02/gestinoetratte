@@ -84,4 +84,9 @@ public class TrattaController {
 	public List<TrattaDTO> findByExample(@RequestBody TrattaDTO example){
 		return TrattaDTO.createTrattaDTOListFromModelList(trattaService.findByExample(example.buildTrattaModel()), true);
 	}
+	
+	@GetMapping("/concludiTratte") 
+	public void concludiTratte() {
+		trattaService.concludiTratte();
+	}
 }
