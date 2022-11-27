@@ -16,4 +16,6 @@ public interface TrattaService {
 	Tratta aggiorna(Tratta input);
 	
 	void rimuovi(Long id);
+	
+	List<Tratta> findByExample(Tratta example);
 }

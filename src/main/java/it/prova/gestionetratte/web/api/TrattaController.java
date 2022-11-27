@@ -79,4 +79,9 @@ public class TrattaController {
 		
 		trattaService.rimuovi(id);
 	}
+	
+	@GetMapping("/search")
+	public List<TrattaDTO> findByExample(@RequestBody TrattaDTO example){
+		return TrattaDTO.createTrattaDTOListFromModelList(trattaService.findByExample(example.buildTrattaModel()), true);
+	}
 }
