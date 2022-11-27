@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.gestionetratte.dto.AirbusDTOSovrapposizioni;
-import it.prova.gestionetratte.dto.TrattaDTO;
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.repository.aribus.AirbusRepository;
 
@@ -74,10 +73,6 @@ public class AirbusServiceImpl implements AirbusService {
 							if(airbusItem.getTratte().get(i).getOraDecollo().isBefore(airbusItem.getTratte().get(j).getOraAtterraggio())) {
 								airbusItem.setConSovrapposizioni(true);
 							}
-						}
-						/* controllo se l'ora di atterraggio sono uguali */
-						else if(airbusItem.getTratte().get(j).getOraAtterraggio().equals(airbusItem.getTratte().get(i).getOraAtterraggio())) {
-							airbusItem.setConSovrapposizioni(true);
 						}
 						/* controllo se l'ora di atterraggio della prima tratta NON è precedente all'ora di decollo delle altre tratte */
 						else if(!airbusItem.getTratte().get(j).getOraAtterraggio().isBefore(airbusItem.getTratte().get(i).getOraDecollo())) {
