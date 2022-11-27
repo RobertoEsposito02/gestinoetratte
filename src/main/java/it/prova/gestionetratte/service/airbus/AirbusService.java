@@ -2,6 +2,7 @@ package it.prova.gestionetratte.service.airbus;
 
 import java.util.List;
 
+import it.prova.gestionetratte.dto.AirbusDTOSovrapposizioni;
 import it.prova.gestionetratte.model.Airbus;
 
 public interface AirbusService {
@@ -18,4 +19,6 @@ public interface AirbusService {
 	void rimuovi(Long id);
 	
 	List<Airbus> findByExample(Airbus example);
+	
+	List<AirbusDTOSovrapposizioni> findListaAirbusEvidenziandoSovrapposizioni();
 }

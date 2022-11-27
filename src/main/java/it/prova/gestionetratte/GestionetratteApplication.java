@@ -52,7 +52,11 @@ public class GestionetratteApplication implements CommandLineRunner {
 				LocalTime.of(11, 30), Stato.ATTIVO);
 		tratta3.setAirbus(airbus2);
 		trattaService.inserisci(tratta3);
-
+		
+		Tratta tratta4 = new Tratta("codice4", "descrizione", LocalDate.of(2021, 12, 9), LocalTime.of(8, 30),
+				LocalTime.of(11, 30), Stato.ATTIVO);
+		tratta4.setAirbus(airbus2);
+		trattaService.inserisci(tratta4);
 	}
 
 	/*

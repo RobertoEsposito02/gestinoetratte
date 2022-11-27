@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.prova.gestionetratte.dto.AirbusDTO;
+import it.prova.gestionetratte.dto.AirbusDTOSovrapposizioni;
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.service.airbus.AirbusService;
 import it.prova.gestionetratte.web.api.exception.AirbusConTratteException;
@@ -85,5 +86,10 @@ public class AibusController {
 	public List<AirbusDTO> findByExample(@RequestBody AirbusDTO example){
 		return AirbusDTO.createAirbusDTOListFromModelList(airbusService.findByExample(example.buildAirbusModel()),
 				true);
+	}
+	
+	@GetMapping("/listaAirbusEvidenziandoSovrapposizioni")
+	public List<AirbusDTOSovrapposizioni> listaAirbusEvidenziandoSovrapposizioni(){
+		return airbusService.findListaAirbusEvidenziandoSovrapposizioni();
 	}
 }
